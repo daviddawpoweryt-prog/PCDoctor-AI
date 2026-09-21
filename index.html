@@ -24,7 +24,7 @@ body{
     line-height:1.6;
 }
 
-button,input{
+button,input,textarea{
     font-family:inherit;
 }
 
@@ -122,6 +122,10 @@ h1{
     box-shadow:0 10px 35px rgba(56,189,248,.2);
 }
 
+.button:hover{
+    transform:translateY(-2px);
+}
+
 section{
     max-width:1100px;
     margin:auto;
@@ -174,6 +178,8 @@ section{
     color:#8995af;
 }
 
+/* AI DIAGNOSTIC */
+
 .diagnostic{
     max-width:850px;
     margin:auto;
@@ -181,31 +187,99 @@ section{
     border-radius:25px;
     border:1px solid rgba(255,255,255,.1);
     background:rgba(10,16,35,.8);
+    box-shadow:0 20px 60px rgba(0,0,0,.2);
 }
 
-.progress{
-    width:0%;
-    height:5px;
-    background:linear-gradient(90deg,#38bdf8,#6366f1);
-    border-radius:10px;
-    margin-bottom:30px;
-    transition:.4s;
+.ai-status{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:20px;
+    color:#7dd3fc;
+    font-size:14px;
+}
+
+.status-dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:#4ade80;
+    box-shadow:0 0 10px #4ade80;
 }
 
 .question{
     font-size:28px;
+    margin-bottom:10px;
+}
+
+.subtext{
+    color:#8995af;
     margin-bottom:25px;
 }
 
-.options{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
+textarea{
+    width:100%;
+    min-height:150px;
+    resize:vertical;
+    padding:18px;
+    border-radius:15px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.04);
+    color:white;
+    font-size:16px;
+    outline:none;
 }
 
-.option{
-    padding:18px;
-    border-radius:14px;
+textarea:focus{
+    border-color:#38bdf8;
+    box-shadow:0 0 0 3px rgba(56,189,248,.08);
+}
+
+textarea::placeholder{
+    color:#68738c;
+}
+
+.ask-row{
+    display:flex;
+    justify-content:flex-end;
+}
+
+.ask-button{
+    margin-top:15px;
+    padding:14px 22px;
+    border:none;
+    border-radius:12px;
+    color:white;
+    font-weight:bold;
+    background:linear-gradient(135deg,#38bdf8,#6366f1);
+}
+
+.ask-button:hover{
+    transform:translateY(-2px);
+}
+
+.ask-button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+    transform:none;
+}
+
+.quick-title{
+    margin-top:35px;
+    margin-bottom:12px;
+    color:#aaa;
+    font-size:14px;
+}
+
+.quick-options{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.quick-option{
+    padding:14px;
+    border-radius:12px;
     border:1px solid rgba(255,255,255,.1);
     background:rgba(255,255,255,.03);
     color:white;
@@ -213,28 +287,84 @@ section{
     transition:.25s;
 }
 
-.option:hover{
+.quick-option:hover{
     background:rgba(56,189,248,.1);
     border-color:#38bdf8;
-    transform:translateY(-2px);
 }
 
-.result{
+.loading{
     display:none;
-    padding:25px;
-    margin-top:20px;
+    margin-top:25px;
+    padding:20px;
     border-radius:15px;
-    background:rgba(74,222,128,.05);
-    border:1px solid rgba(74,222,128,.25);
+    background:rgba(56,189,248,.05);
+    border:1px solid rgba(56,189,248,.15);
+    color:#7dd3fc;
 }
 
-.result h3{
-    margin-bottom:10px;
+.loading.show{
+    display:block;
 }
 
-.result p{
-    color:#aab4ca;
+.answer-box{
+    display:none;
+    margin-top:25px;
+    padding:25px;
+    border-radius:18px;
+    background:rgba(74,222,128,.04);
+    border:1px solid rgba(74,222,128,.2);
 }
+
+.answer-box.show{
+    display:block;
+}
+
+.answer-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.answer-header h3{
+    font-size:20px;
+}
+
+.answer-content{
+    color:#b9c2d4;
+    white-space:pre-wrap;
+    line-height:1.8;
+}
+
+.error-box{
+    display:none;
+    margin-top:20px;
+    padding:18px;
+    border-radius:14px;
+    background:rgba(248,113,113,.06);
+    border:1px solid rgba(248,113,113,.25);
+    color:#fca5a5;
+}
+
+.error-box.show{
+    display:block;
+}
+
+.clear-button{
+    margin-top:20px;
+    padding:10px 16px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.04);
+    color:#aaa;
+}
+
+.clear-button:hover{
+    color:white;
+    border-color:#38bdf8;
+}
+
+/* HOW IT WORKS */
 
 .steps{
     display:grid;
@@ -265,6 +395,8 @@ section{
     color:#8995af;
 }
 
+/* FAQ */
+
 .faq{
     max-width:800px;
     margin:auto;
@@ -291,6 +423,8 @@ section{
     padding-bottom:20px;
     color:#8995af;
 }
+
+/* CTA */
 
 .cta{
     text-align:center;
@@ -319,7 +453,7 @@ footer{
 
     .features,
     .steps,
-    .options{
+    .quick-options{
         grid-template-columns:1fr;
     }
 
@@ -330,11 +464,21 @@ footer{
     .cta h2{
         font-size:38px;
     }
+
+    .diagnostic{
+        padding:22px;
+    }
+
+    .question{
+        font-size:24px;
+    }
 }
 </style>
 </head>
 
 <body>
+
+<!-- NAVBAR -->
 
 <nav class="navbar">
 
@@ -351,6 +495,8 @@ footer{
 
 </nav>
 
+
+<!-- HERO -->
 
 <section class="hero">
 
@@ -380,6 +526,8 @@ footer{
 </section>
 
 
+<!-- FEATURES -->
+
 <section id="features">
 
     <div class="section-title">
@@ -387,7 +535,7 @@ footer{
         <h2>Computer troubleshooting, simplified.</h2>
 
         <p>
-            Get started with simple questions instead of complicated technical jargon.
+            Get help from an AI assistant without complicated technical jargon.
         </p>
 
     </div>
@@ -397,9 +545,9 @@ footer{
 
         <div class="card">
             <div class="icon">🔍</div>
-            <h3>Guided Diagnosis</h3>
+            <h3>AI Diagnosis</h3>
             <p>
-                Answer simple questions to narrow down possible causes.
+                Describe your computer problem and let PC Doctor AI help you investigate it.
             </p>
         </div>
 
@@ -407,7 +555,7 @@ footer{
             <div class="icon">⚡</div>
             <h3>Fast Troubleshooting</h3>
             <p>
-                Quickly find useful troubleshooting steps.
+                Get practical troubleshooting suggestions in seconds.
             </p>
         </div>
 
@@ -415,7 +563,7 @@ footer{
             <div class="icon">🧠</div>
             <h3>AI Assistance</h3>
             <p>
-                The next version can connect to an AI model for personalized answers.
+                Powered by an AI model through a secure Cloudflare Worker.
             </p>
         </div>
 
@@ -423,7 +571,7 @@ footer{
             <div class="icon">🛡️</div>
             <h3>Safety First</h3>
             <p>
-                Get safer troubleshooting guidance for common computer problems.
+                PC Doctor AI avoids instructions involving exposed electricity or dangerous hardware work.
             </p>
         </div>
 
@@ -431,7 +579,7 @@ footer{
             <div class="icon">💻</div>
             <h3>Hardware & Software</h3>
             <p>
-                Designed to help with common hardware and software symptoms.
+                Get help investigating common hardware and software symptoms.
             </p>
         </div>
 
@@ -439,7 +587,7 @@ footer{
             <div class="icon">📋</div>
             <h3>Simple Instructions</h3>
             <p>
-                Clear instructions without giant walls of technical information.
+                Clear beginner-friendly instructions instead of confusing technical language.
             </p>
         </div>
 
@@ -447,6 +595,8 @@ footer{
 
 </section>
 
+
+<!-- AI DIAGNOSIS -->
 
 <section id="diagnose">
 
@@ -455,7 +605,7 @@ footer{
         <h2>What's wrong with your PC?</h2>
 
         <p>
-            Choose the problem that sounds closest to what you're experiencing.
+            Tell PC Doctor AI what is happening and get troubleshooting help.
         </p>
 
     </div>
@@ -463,53 +613,122 @@ footer{
 
     <div class="diagnostic">
 
-        <div class="progress" id="progress"></div>
+        <div class="ai-status">
+            <div class="status-dot"></div>
+            PC Doctor AI is online
+        </div>
 
-        <div id="questions">
+        <div class="question">
+            Describe your PC problem.
+        </div>
 
-            <div class="question">
-                What is happening?
-            </div>
+        <div class="subtext">
+            Be as specific as you can. For example, tell me what happens,
+            when it started, and any error messages you see.
+        </div>
 
-            <div class="options">
 
-                <button class="option" onclick="diagnose('slow')">
-                    🐌 My PC is slow
-                </button>
+        <textarea
+            id="questionInput"
+            placeholder="Example: My Windows PC has become extremely slow over the last few days. It takes several minutes to start and programs keep freezing..."
+        ></textarea>
 
-                <button class="option" onclick="diagnose('startup')">
-                    🔌 My PC won't turn on
-                </button>
 
-                <button class="option" onclick="diagnose('crash')">
-                    💥 My PC keeps crashing
-                </button>
+        <div class="ask-row">
 
-                <button class="option" onclick="diagnose('internet')">
-                    🌐 My internet isn't working
-                </button>
-
-                <button class="option" onclick="diagnose('hot')">
-                    🌡️ My PC is overheating
-                </button>
-
-                <button class="option" onclick="diagnose('other')">
-                    ❓ Something else
-                </button>
-
-            </div>
+            <button
+                class="ask-button"
+                id="askButton"
+                onclick="askPCDoctor()"
+            >
+                Ask PC Doctor AI →
+            </button>
 
         </div>
 
 
-        <div class="result" id="result">
+        <div class="quick-title">
+            Or choose a common problem:
+        </div>
 
-            <h3 id="resultTitle"></h3>
 
-            <p id="resultText"></p>
+        <div class="quick-options">
 
-            <button class="button" onclick="restart()">
-                Start Over
+            <button
+                class="quick-option"
+                onclick="useQuickProblem('My PC is very slow. It takes a long time to start and programs are running slowly.')"
+            >
+                🐌 My PC is slow
+            </button>
+
+            <button
+                class="quick-option"
+                onclick="useQuickProblem('My PC will not turn on. What should I check first?')"
+            >
+                🔌 My PC won't turn on
+            </button>
+
+            <button
+                class="quick-option"
+                onclick="useQuickProblem('My PC keeps crashing or freezing. What could be causing it?')"
+            >
+                💥 My PC keeps crashing
+            </button>
+
+            <button
+                class="quick-option"
+                onclick="useQuickProblem('My internet is not working on my PC. What should I check?')"
+            >
+                🌐 My internet isn't working
+            </button>
+
+            <button
+                class="quick-option"
+                onclick="useQuickProblem('My PC seems to be overheating. What should I check safely?')"
+            >
+                🌡️ My PC is overheating
+            </button>
+
+            <button
+                class="quick-option"
+                onclick="useQuickProblem('Something else is wrong with my PC. Help me figure out what information you need.')"
+            >
+                ❓ Something else
+            </button>
+
+        </div>
+
+
+        <div class="loading" id="loading">
+
+            🤖 PC Doctor AI is thinking...
+
+        </div>
+
+
+        <div class="error-box" id="errorBox"></div>
+
+
+        <div class="answer-box" id="answerBox">
+
+            <div class="answer-header">
+
+                <span>🩺</span>
+
+                <h3>PC Doctor AI</h3>
+
+            </div>
+
+            <div
+                class="answer-content"
+                id="answerContent"
+            ></div>
+
+            <button
+                class="clear-button"
+                onclick="clearAnswer()"
+            >
+                Ask Another Question
             </button>
 
         </div>
@@ -518,6 +737,8 @@ footer{
 
 </section>
 
+
+<!-- HOW IT WORKS -->
 
 <section id="how">
 
@@ -541,7 +762,7 @@ footer{
             <h3>Tell us the problem</h3>
 
             <p>
-                Choose the symptom that best describes your computer.
+                Describe what your computer is doing in your own words.
             </p>
 
         </div>
@@ -551,10 +772,10 @@ footer{
 
             <div class="number">02</div>
 
-            <h3>Answer questions</h3>
+            <h3>AI investigates</h3>
 
             <p>
-                Work through questions that help narrow down the problem.
+                PC Doctor AI analyzes your description and suggests possible causes.
             </p>
 
         </div>
@@ -567,7 +788,7 @@ footer{
             <h3>Follow the steps</h3>
 
             <p>
-                Follow clear troubleshooting instructions.
+                Follow the troubleshooting instructions and see whether the problem improves.
             </p>
 
         </div>
@@ -576,6 +797,8 @@ footer{
 
 </section>
 
+
+<!-- FAQ -->
 
 <section id="faq">
 
@@ -591,12 +814,18 @@ footer{
         <div class="faq-item">
 
             <button class="faq-button">
+
                 Is PC Doctor AI actually AI?
+
                 <span>+</span>
+
             </button>
 
             <div class="answer">
-                This version is a prototype. The next step is connecting an AI model so it can understand user descriptions and generate personalized troubleshooting.
+
+                Yes. PC Doctor AI sends your question to an AI model through a Cloudflare Worker,
+                which generates a troubleshooting response.
+
             </div>
 
         </div>
@@ -605,12 +834,18 @@ footer{
         <div class="faq-item">
 
             <button class="faq-button">
+
                 Can it automatically fix my computer?
+
                 <span>+</span>
+
             </button>
 
             <div class="answer">
-                No. This version provides troubleshooting guidance instead of automatically changing computer settings.
+
+                No. PC Doctor AI provides troubleshooting guidance.
+                It does not automatically change settings or control your computer.
+
             </div>
 
         </div>
@@ -619,12 +854,18 @@ footer{
         <div class="faq-item">
 
             <button class="faq-button">
+
                 Does it work with Windows?
+
                 <span>+</span>
+
             </button>
 
             <div class="answer">
-                The diagnostic questions are designed around common Windows PC problems.
+
+                PC Doctor AI is designed to help with common PC problems,
+                including many Windows hardware and software issues.
+
             </div>
 
         </div>
@@ -633,12 +874,38 @@ footer{
         <div class="faq-item">
 
             <button class="faq-button">
+
                 Is this a replacement for a technician?
+
                 <span>+</span>
+
             </button>
 
             <div class="answer">
-                No. Serious hardware or electrical problems should be handled by a qualified technician.
+
+                No. Serious hardware problems or electrical issues should be handled
+                by a qualified technician or knowledgeable adult.
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button class="faq-button">
+
+                Can PC Doctor AI see my computer?
+
+                <span>+</span>
+
+            </button>
+
+            <div class="answer">
+
+                No. PC Doctor AI only knows the information you provide in your question.
+                It cannot physically inspect your computer.
+
             </div>
 
         </div>
@@ -647,6 +914,8 @@ footer{
 
 </section>
 
+
+<!-- CTA -->
 
 <div class="cta">
 
@@ -657,15 +926,17 @@ footer{
     </h2>
 
     <p>
-        Start with a few simple questions.
+        Ask PC Doctor AI what to do next.
     </p>
 
     <a href="#diagnose" class="button">
-        Start Diagnosis →
+        Ask PC Doctor AI →
     </a>
 
 </div>
 
+
+<!-- FOOTER -->
 
 <footer>
 
@@ -680,90 +951,306 @@ footer{
 
 <script>
 
-const diagnoses = {
+/*
+=========================================================
+PC DOCTOR AI
+CLOUDFLARE WORKER CONNECTION
+=========================================================
+*/
 
-    slow:{
-        title:"Let's investigate your slow PC",
-        text:"A slow PC can have several causes, including too many startup programs, low storage, high memory usage, background processes, overheating, or hardware limitations."
-    },
+const WORKER_URL =
+    "https://old-night-a4f6pc-doctor-ai.daviddawpoweryt.workers.dev";
 
-    startup:{
-        title:"Let's investigate the startup problem",
-        text:"First check that the computer's power cable is connected securely and that the power outlet works. If the PC shows no signs of power, hardware or power-delivery issues may be involved."
-    },
 
-    crash:{
-        title:"Let's investigate the crashes",
-        text:"Frequent crashes can be caused by software problems, drivers, overheating, memory issues, or hardware problems. Pay attention to when the crash happens and whether an error message appears."
-    },
+/*
+=========================================================
+ASK PC DOCTOR AI
+=========================================================
+*/
 
-    internet:{
-        title:"Let's investigate your internet",
-        text:"Check whether other devices can connect to the same network. If they can, the issue may be specific to your computer. Restarting the router and checking the computer's network connection can also help."
-    },
+async function askPCDoctor(){
 
-    hot:{
-        title:"Let's investigate the temperature",
-        text:"Overheating can cause performance problems and crashes. Make sure the computer has good airflow and that its vents are not blocked."
-    },
+    const input =
+        document.getElementById("questionInput");
 
-    other:{
-        title:"Let's figure out what's happening",
-        text:"Describe exactly what your computer is doing. The future AI version of PC Doctor will be able to analyze your description and suggest a troubleshooting path."
+    const button =
+        document.getElementById("askButton");
+
+    const loading =
+        document.getElementById("loading");
+
+    const answerBox =
+        document.getElementById("answerBox");
+
+    const answerContent =
+        document.getElementById("answerContent");
+
+    const errorBox =
+        document.getElementById("errorBox");
+
+
+    const question =
+        input.value.trim();
+
+
+    /*
+    Make sure the user actually typed something.
+    */
+
+    if(!question){
+
+        errorBox.textContent =
+            "Please describe your PC problem first.";
+
+        errorBox.classList.add("show");
+
+        answerBox.classList.remove("show");
+
+        return;
     }
 
-};
+
+    /*
+    Hide previous messages.
+    */
+
+    errorBox.classList.remove("show");
+
+    answerBox.classList.remove("show");
 
 
-function diagnose(type){
+    /*
+    Show loading state.
+    */
 
-    document.getElementById("questions").style.display="none";
+    button.disabled = true;
 
-    document.getElementById("result").style.display="block";
+    button.textContent = "Thinking...";
 
-    document.getElementById("progress").style.width="100%";
+    loading.classList.add("show");
 
-    document.getElementById("resultTitle").textContent=
-        diagnoses[type].title;
 
-    document.getElementById("resultText").textContent=
-        diagnoses[type].text;
+    try{
+
+        /*
+        Send the question to the Cloudflare Worker.
+        The Worker expects:
+        {
+            question: "..."
+        }
+        */
+
+        const response = await fetch(
+            WORKER_URL,
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body:JSON.stringify({
+                    question:question
+                })
+            }
+        );
+
+
+        /*
+        Convert the Worker response into JSON.
+        */
+
+        const data =
+            await response.json();
+
+
+        /*
+        If the Worker returned an error,
+        show it to the user.
+        */
+
+        if(!response.ok){
+
+            throw new Error(
+                data.error ||
+                "PC Doctor AI could not answer right now."
+            );
+
+        }
+
+
+        /*
+        Display the AI's answer.
+        */
+
+        answerContent.textContent =
+            data.answer ||
+            "I couldn't generate an answer.";
+
+
+        answerBox.classList.add("show");
+
+
+        /*
+        Scroll the answer into view.
+        */
+
+        setTimeout(()=>{
+
+            answerBox.scrollIntoView({
+                behavior:"smooth",
+                block:"center"
+            });
+
+        },100);
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        errorBox.textContent =
+            "Sorry, something went wrong connecting to PC Doctor AI. Please try again.";
+
+        errorBox.classList.add("show");
+
+    }finally{
+
+        /*
+        Restore the button.
+        */
+
+        button.disabled = false;
+
+        button.textContent =
+            "Ask PC Doctor AI →";
+
+        loading.classList.remove("show");
+
+    }
 
 }
 
 
-function restart(){
+/*
+=========================================================
+QUICK PROBLEM BUTTONS
+=========================================================
+*/
 
-    document.getElementById("questions").style.display="block";
+function useQuickProblem(problem){
 
-    document.getElementById("result").style.display="none";
+    const input =
+        document.getElementById("questionInput");
 
-    document.getElementById("progress").style.width="0%";
+    input.value = problem;
+
+    input.focus();
+
+    document.getElementById("answerBox")
+        .classList.remove("show");
+
+    document.getElementById("errorBox")
+        .classList.remove("show");
 
 }
 
 
-document.querySelectorAll(".faq-button").forEach(button=>{
+/*
+=========================================================
+CLEAR ANSWER
+=========================================================
+*/
 
-    button.addEventListener("click",()=>{
+function clearAnswer(){
 
-        const answer=button.nextElementSibling;
+    const input =
+        document.getElementById("questionInput");
 
-        if(answer.style.display==="block"){
+    const answerBox =
+        document.getElementById("answerBox");
 
-            answer.style.display="none";
-            button.querySelector("span").textContent="+";
+    const errorBox =
+        document.getElementById("errorBox");
 
-        }else{
 
-            answer.style.display="block";
-            button.querySelector("span").textContent="−";
+    input.value = "";
+
+    answerBox.classList.remove("show");
+
+    errorBox.classList.remove("show");
+
+    input.focus();
+
+}
+
+
+/*
+=========================================================
+ENTER KEY
+=========================================================
+*/
+
+document
+    .getElementById("questionInput")
+    .addEventListener("keydown",function(event){
+
+        /*
+        Ctrl + Enter or Command + Enter
+        sends the question.
+        */
+
+        if(
+            (event.ctrlKey || event.metaKey) &&
+            event.key === "Enter"
+        ){
+
+            event.preventDefault();
+
+            askPCDoctor();
 
         }
 
     });
 
-});
+
+/*
+=========================================================
+FAQ
+=========================================================
+*/
+
+document
+    .querySelectorAll(".faq-button")
+    .forEach(button=>{
+
+        button.addEventListener("click",()=>{
+
+            const answer =
+                button.nextElementSibling;
+
+            const symbol =
+                button.querySelector("span");
+
+
+            if(answer.style.display === "block"){
+
+                answer.style.display = "none";
+
+                symbol.textContent = "+";
+
+            }else{
+
+                answer.style.display = "block";
+
+                symbol.textContent = "−";
+
+            }
+
+        });
+
+    });
 
 </script>
 
