@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PC Doctor AI</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#050816;
+    color:white;
+    line-height:1.6;
+}
+
+button,input{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.navbar{
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:100;
+    padding:18px 7%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(5,8,22,.85);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#38bdf8;
+}
+
+.navbar a{
+    color:#aaa;
+    text-decoration:none;
+    margin-left:25px;
+}
+
+.navbar a:hover{
+    color:white;
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:120px 20px 70px;
+    background:
+        radial-gradient(circle at 50% 30%,rgba(56,189,248,.15),transparent 35%);
+}
+
+.hero-content{
+    max-width:900px;
+}
+
+.badge{
+    display:inline-block;
+    padding:8px 16px;
+    border:1px solid rgba(56,189,248,.3);
+    border-radius:50px;
+    color:#7dd3fc;
+    background:rgba(56,189,248,.08);
+    margin-bottom:25px;
+}
+
+h1{
+    font-size:clamp(50px,8vw,90px);
+    line-height:1;
+    margin-bottom:25px;
+}
+
+.gradient{
+    background:linear-gradient(90deg,#38bdf8,#818cf8,#c084fc);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    color:#9ca8c2;
+    font-size:19px;
+    max-width:650px;
+    margin:auto;
+}
+
+.button{
+    display:inline-block;
+    margin-top:30px;
+    padding:15px 25px;
+    border-radius:12px;
+    border:none;
+    color:white;
+    font-weight:bold;
+    text-decoration:none;
+    background:linear-gradient(135deg,#38bdf8,#6366f1);
+    box-shadow:0 10px 35px rgba(56,189,248,.2);
+}
+
+section{
+    max-width:1100px;
+    margin:auto;
+    padding:100px 25px;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title h2{
+    font-size:45px;
+    margin-bottom:12px;
+}
+
+.section-title p{
+    color:#8995af;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.card{
+    padding:30px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    background:rgba(255,255,255,.03);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    border-color:rgba(56,189,248,.4);
+}
+
+.icon{
+    font-size:35px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#8995af;
+}
+
+.diagnostic{
+    max-width:850px;
+    margin:auto;
+    padding:35px;
+    border-radius:25px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(10,16,35,.8);
+}
+
+.progress{
+    width:0%;
+    height:5px;
+    background:linear-gradient(90deg,#38bdf8,#6366f1);
+    border-radius:10px;
+    margin-bottom:30px;
+    transition:.4s;
+}
+
+.question{
+    font-size:28px;
+    margin-bottom:25px;
+}
+
+.options{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.option{
+    padding:18px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.03);
+    color:white;
+    text-align:left;
+    transition:.25s;
+}
+
+.option:hover{
+    background:rgba(56,189,248,.1);
+    border-color:#38bdf8;
+    transform:translateY(-2px);
+}
+
+.result{
+    display:none;
+    padding:25px;
+    margin-top:20px;
+    border-radius:15px;
+    background:rgba(74,222,128,.05);
+    border:1px solid rgba(74,222,128,.25);
+}
+
+.result h3{
+    margin-bottom:10px;
+}
+
+.result p{
+    color:#aab4ca;
+}
+
+.steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.step{
+    padding:30px;
+    border-radius:20px;
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.number{
+    display:flex;
+    width:45px;
+    height:45px;
+    align-items:center;
+    justify-content:center;
+    border-radius:12px;
+    background:linear-gradient(135deg,#38bdf8,#6366f1);
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.step p{
+    color:#8995af;
+}
+
+.faq{
+    max-width:800px;
+    margin:auto;
+}
+
+.faq-item{
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.faq-button{
+    width:100%;
+    padding:22px 0;
+    background:none;
+    border:none;
+    color:white;
+    text-align:left;
+    font-size:17px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.answer{
+    display:none;
+    padding-bottom:20px;
+    color:#8995af;
+}
+
+.cta{
+    text-align:center;
+    padding:90px 20px;
+    margin:40px 20px;
+    border-radius:30px;
+    background:radial-gradient(circle,rgba(56,189,248,.15),transparent 60%);
+}
+
+.cta h2{
+    font-size:50px;
+}
+
+footer{
+    text-align:center;
+    padding:40px;
+    color:#68738c;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+@media(max-width:750px){
+
+    .navbar div:last-child{
+        display:none;
+    }
+
+    .features,
+    .steps,
+    .options{
+        grid-template-columns:1fr;
+    }
+
+    .section-title h2{
+        font-size:35px;
+    }
+
+    .cta h2{
+        font-size:38px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        🩺 PC Doctor <span>AI</span>
+    </div>
+
+    <div>
+        <a href="#features">Features</a>
+        <a href="#diagnose">Diagnose</a>
+        <a href="#how">How It Works</a>
+        <a href="#faq">FAQ</a>
+    </div>
+
+</nav>
+
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="badge">
+            🟢 AI-powered PC troubleshooting
+        </div>
+
+        <h1>
+            Fix your PC
+            <br>
+            <span class="gradient">without the headache.</span>
+        </h1>
+
+        <p>
+            PC Doctor AI helps you understand what's wrong with your computer
+            and guides you through troubleshooting step by step.
+        </p>
+
+        <a href="#diagnose" class="button">
+            Diagnose My PC →
+        </a>
+
+    </div>
+
+</section>
+
+
+<section id="features">
+
+    <div class="section-title">
+
+        <h2>Computer troubleshooting, simplified.</h2>
+
+        <p>
+            Get started with simple questions instead of complicated technical jargon.
+        </p>
+
+    </div>
+
+
+    <div class="features">
+
+        <div class="card">
+            <div class="icon">🔍</div>
+            <h3>Guided Diagnosis</h3>
+            <p>
+                Answer simple questions to narrow down possible causes.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">⚡</div>
+            <h3>Fast Troubleshooting</h3>
+            <p>
+                Quickly find useful troubleshooting steps.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🧠</div>
+            <h3>AI Assistance</h3>
+            <p>
+                The next version can connect to an AI model for personalized answers.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🛡️</div>
+            <h3>Safety First</h3>
+            <p>
+                Get safer troubleshooting guidance for common computer problems.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">💻</div>
+            <h3>Hardware & Software</h3>
+            <p>
+                Designed to help with common hardware and software symptoms.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">📋</div>
+            <h3>Simple Instructions</h3>
+            <p>
+                Clear instructions without giant walls of technical information.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="diagnose">
+
+    <div class="section-title">
+
+        <h2>What's wrong with your PC?</h2>
+
+        <p>
+            Choose the problem that sounds closest to what you're experiencing.
+        </p>
+
+    </div>
+
+
+    <div class="diagnostic">
+
+        <div class="progress" id="progress"></div>
+
+        <div id="questions">
+
+            <div class="question">
+                What is happening?
+            </div>
+
+            <div class="options">
+
+                <button class="option" onclick="diagnose('slow')">
+                    🐌 My PC is slow
+                </button>
+
+                <button class="option" onclick="diagnose('startup')">
+                    🔌 My PC won't turn on
+                </button>
+
+                <button class="option" onclick="diagnose('crash')">
+                    💥 My PC keeps crashing
+                </button>
+
+                <button class="option" onclick="diagnose('internet')">
+                    🌐 My internet isn't working
+                </button>
+
+                <button class="option" onclick="diagnose('hot')">
+                    🌡️ My PC is overheating
+                </button>
+
+                <button class="option" onclick="diagnose('other')">
+                    ❓ Something else
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="result" id="result">
+
+            <h3 id="resultTitle"></h3>
+
+            <p id="resultText"></p>
+
+            <button class="button" onclick="restart()">
+                Start Over
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="how">
+
+    <div class="section-title">
+
+        <h2>Three simple steps.</h2>
+
+        <p>
+            Troubleshooting shouldn't feel complicated.
+        </p>
+
+    </div>
+
+
+    <div class="steps">
+
+        <div class="step">
+
+            <div class="number">01</div>
+
+            <h3>Tell us the problem</h3>
+
+            <p>
+                Choose the symptom that best describes your computer.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="number">02</div>
+
+            <h3>Answer questions</h3>
+
+            <p>
+                Work through questions that help narrow down the problem.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="number">03</div>
+
+            <h3>Follow the steps</h3>
+
+            <p>
+                Follow clear troubleshooting instructions.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="faq">
+
+    <div class="section-title">
+
+        <h2>Frequently Asked Questions</h2>
+
+    </div>
+
+
+    <div class="faq">
+
+        <div class="faq-item">
+
+            <button class="faq-button">
+                Is PC Doctor AI actually AI?
+                <span>+</span>
+            </button>
+
+            <div class="answer">
+                This version is a prototype. The next step is connecting an AI model so it can understand user descriptions and generate personalized troubleshooting.
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button class="faq-button">
+                Can it automatically fix my computer?
+                <span>+</span>
+            </button>
+
+            <div class="answer">
+                No. This version provides troubleshooting guidance instead of automatically changing computer settings.
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button class="faq-button">
+                Does it work with Windows?
+                <span>+</span>
+            </button>
+
+            <div class="answer">
+                The diagnostic questions are designed around common Windows PC problems.
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button class="faq-button">
+                Is this a replacement for a technician?
+                <span>+</span>
+            </button>
+
+            <div class="answer">
+                No. Serious hardware or electrical problems should be handled by a qualified technician.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<div class="cta">
+
+    <h2>
+        Your PC has a problem.
+        <br>
+        Let's figure it out.
+    </h2>
+
+    <p>
+        Start with a few simple questions.
+    </p>
+
+    <a href="#diagnose" class="button">
+        Start Diagnosis →
+    </a>
+
+</div>
+
+
+<footer>
+
+    🩺 PC Doctor AI
+
+    <br>
+
+    <small>© 2026 PC Doctor AI</small>
+
+</footer>
+
+
+<script>
+
+const diagnoses = {
+
+    slow:{
+        title:"Let's investigate your slow PC",
+        text:"A slow PC can have several causes, including too many startup programs, low storage, high memory usage, background processes, overheating, or hardware limitations."
+    },
+
+    startup:{
+        title:"Let's investigate the startup problem",
+        text:"First check that the computer's power cable is connected securely and that the power outlet works. If the PC shows no signs of power, hardware or power-delivery issues may be involved."
+    },
+
+    crash:{
+        title:"Let's investigate the crashes",
+        text:"Frequent crashes can be caused by software problems, drivers, overheating, memory issues, or hardware problems. Pay attention to when the crash happens and whether an error message appears."
+    },
+
+    internet:{
+        title:"Let's investigate your internet",
+        text:"Check whether other devices can connect to the same network. If they can, the issue may be specific to your computer. Restarting the router and checking the computer's network connection can also help."
+    },
+
+    hot:{
+        title:"Let's investigate the temperature",
+        text:"Overheating can cause performance problems and crashes. Make sure the computer has good airflow and that its vents are not blocked."
+    },
+
+    other:{
+        title:"Let's figure out what's happening",
+        text:"Describe exactly what your computer is doing. The future AI version of PC Doctor will be able to analyze your description and suggest a troubleshooting path."
+    }
+
+};
+
+
+function diagnose(type){
+
+    document.getElementById("questions").style.display="none";
+
+    document.getElementById("result").style.display="block";
+
+    document.getElementById("progress").style.width="100%";
+
+    document.getElementById("resultTitle").textContent=
+        diagnoses[type].title;
+
+    document.getElementById("resultText").textContent=
+        diagnoses[type].text;
+
+}
+
+
+function restart(){
+
+    document.getElementById("questions").style.display="block";
+
+    document.getElementById("result").style.display="none";
+
+    document.getElementById("progress").style.width="0%";
+
+}
+
+
+document.querySelectorAll(".faq-button").forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
+        const answer=button.nextElementSibling;
+
+        if(answer.style.display==="block"){
+
+            answer.style.display="none";
+            button.querySelector("span").textContent="+";
+
+        }else{
+
+            answer.style.display="block";
+            button.querySelector("span").textContent="−";
+
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
